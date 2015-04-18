@@ -9,7 +9,7 @@ Option Explicit
 ' Source            : https://github.com/koreabigname/excel-vba-template
 ' Date              : 2015-04-18
 ' Parameters        : pvarArray - an array which is all type by reference
-' Called By         : Nothing
+' Called By         : KBFile.OpenFiles
 ' Value Returned    : Long
 ' Modification History
 '
