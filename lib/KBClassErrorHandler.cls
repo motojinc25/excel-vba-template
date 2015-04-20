@@ -38,9 +38,6 @@ Private intFreeFileNumber       As Integer
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 Private Sub Class_Initialize()
 
-intSaveFreeFile = FreeFile
-Open ThisWorkbook.Path & "\" & strSaveFilename For Append As #intSaveFreeFile
-
 End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -61,7 +58,7 @@ End Sub
 ' Value Returned    : Nothing
 '
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
-Private Sub init()
+Public Sub init()
 
 Const PROCEDURE_NAME        As String = "KBClassErrorHandler.init"
 Const SECTION_NAME          As String = "Tool_Log"
@@ -84,7 +81,7 @@ End If
 
 On Error GoTo ErrorHandler
 
-10: strSaveFilename = GetSectionEntryString(SECTION_NAME, ENTRY_LOG_FILENAME, ThisWorkbook.Path & "\1" & C_TOOL_INIT_FILE)
+10: strSaveFilename = GetSectionEntryString(SECTION_NAME, ENTRY_LOG_FILENAME, ThisWorkbook.Path & "\" & C_TOOL_INIT_FILE)
 
 20: strEntryValue = GetSectionEntryString(SECTION_NAME, ENTRY_INFORMATION_LOG, ThisWorkbook.Path & "\" & C_TOOL_INIT_FILE)
 
@@ -118,8 +115,8 @@ Else
     blnDebugFlag = False
 End If
 
-60: intSaveFreeFile = FreeFile
-Open ThisWorkbook.Path & "\" & strSaveFilename For Append As #intSaveFreeFile
+60: intFreeFileNumber = FreeFile
+Open ThisWorkbook.Path & "\" & strSaveFilename For Append As #intFreeFileNumber
 
 Exit Sub
 
@@ -140,7 +137,7 @@ End Sub
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 Public Sub releaseLogFile()
 
-Close #intSaveFreeFile
+Close #intFreeFileNumber
 
 End Sub
 
@@ -166,7 +163,7 @@ If (blnErrorFlag = True) Then
 
     strOutputMessage = Date & " " & Time & " [E] " & strHeadMessage & " " & strBodyMessage
     
-10: Print #intSaveFreeFile, strOutputMessage
+10: Print #intFreeFileNumber, strOutputMessage
     
 End If
 
@@ -202,7 +199,7 @@ If (blnErrorFlag = True) Then
 
     strOutputMessage = Date & " " & Time & " [I] " & strHeadMessage & " " & strBodyMessage
     
-10: Print #intSaveFreeFile, strOutputMessage
+10: Print #intFreeFileNumber, strOutputMessage
     
 End If
 
@@ -238,7 +235,7 @@ If (blnErrorFlag = True) Then
 
     strOutputMessage = Date & " " & Time & " [W] " & strHeadMessage & " " & strBodyMessage
     
-10: Print #intSaveFreeFile, strOutputMessage
+10: Print #intFreeFileNumber, strOutputMessage
     
 End If
 
@@ -274,7 +271,7 @@ If (blnErrorFlag = True) Then
 
     strOutputMessage = Date & " " & Time & " [D] " & strHeadMessage & " " & strBodyMessage
     
-10: Print #intSaveFreeFile, strOutputMessage
+10: Print #intFreeFileNumber, strOutputMessage
     
 End If
 

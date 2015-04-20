@@ -34,7 +34,7 @@ End If
 
 On Error GoTo ErrorHandler
 
-10: gstrToolName = GetSectionEntryString(SECTION_NAME, ENTRY_TOOL_NAME, ThisWorkbook.Path & "\1" & C_TOOL_INIT_FILE)
+10: gstrToolName = GetSectionEntryString(SECTION_NAME, ENTRY_TOOL_NAME, ThisWorkbook.Path & "\" & C_TOOL_INIT_FILE)
 20: gstrToolVersion = GetSectionEntryString(SECTION_NAME, ENTRY_TOOL_VERSION, ThisWorkbook.Path & "\" & C_TOOL_INIT_FILE)
 
 Exit Sub

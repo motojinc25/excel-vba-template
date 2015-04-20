@@ -62,20 +62,20 @@ End Function
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 Public Sub MakeWorkbook( _
     ByVal strPath As String, _
-    ByVal strFilename As String _
+    ByVal strFileName As String _
 )
 
 Dim objWB As Workbook
 
-If (IsExistWorkbook(strFilename) = True) Then
+If (IsExistWorkbook(strFileName) = True) Then
     
-    Workbooks(strFilename).Close
+    Workbooks(strFileName).Close
 
 End If
 
 Set objWB = Workbooks.Add
 
-objWB.SaveAs Filename:=strPath & "\" & strFilename, _
+objWB.SaveAs Filename:=strPath & "\" & strFileName, _
              FileFormat:=xlNormal, _
              Local:=True
 

@@ -22,7 +22,7 @@ Option Explicit
 '   ------------    ----------    --------    ---------
 '
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
-Private Const C_BAR_MAX_VALUE As Integer = 100
+Private Const C_BAR_MAX_VALUE As Integer = 500
 Private intBar1Percent        As Integer
 Private intBar2Percent        As Integer
 Private intBar3Percent        As Integer
@@ -266,7 +266,7 @@ Dim intBarPercentValue As Integer
 Dim intBarValue As Integer
 
 intBarPercentValue = Int(lngCurrentValue / lngMaxValue * 100)
-intBarValue = Int(intBarPercentValue * (C_ProgressBarMaxValue / 100))
+intBarValue = Int(intBarPercentValue * (C_BAR_MAX_VALUE / 100))
 
 Select Case intBarGroupNumber
 Case 1

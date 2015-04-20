@@ -268,10 +268,6 @@ If (IsArray(pvarOpenFiles) = True) Then
     
     intFileCount = GetSizeArray(pvarOpenFiles)
         
-Else
-    
-    intFileCount = 1
-    
 End If
 
 OpenFiles = intFileCount
