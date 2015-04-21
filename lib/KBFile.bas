@@ -273,3 +273,94 @@ End If
 OpenFiles = intFileCount
 
 End Function
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Function          : ReadTextFileToRecordCollection
+' Description       : Read a text file to record collection object
+' Author            : Jingun Jung
+' Licence           : Apache License 2.0
+' Source            : https://github.com/koreabigname/excel-vba-template
+' Date              : 2015-04-21
+' Parameters        : strReadFileFullPath - Read text file with path
+'                     strReturnCodeInFile - Return Code (vbLf, vbCrLf, vbCr)
+'                     pobjCollection      - Record collection object
+' Called By         : Nothing
+' Value Returned    : Nothing
+' Modification History
+'
+'   Author          Date          Reason      Comment
+'   ------------    ----------    --------    ---------
+'
+''''''''''''''''''''''''''''''''''''''''''''''''''''
+Public Sub ReadTextFileToRecordCollection( _
+  ByVal strReadFileFullPath As String, _
+  ByVal strReturnCodeInFile As String, _
+  ByRef pobjCollection As KBClassRecordCollection _
+)
+
+Dim intFileNum          As Integer
+Dim bytBuffer()         As Byte
+Dim strBuffer           As String
+Dim strRecord           As String
+Dim lngLPos             As Long
+Dim intReturnCodeLen    As Integer
+Dim lngReadLen          As Long
+Dim lngSurplus          As Long
+Dim lngFileSize         As Long
+Dim strArray(1)         As String
+
+lngFileSize = FileLen(strReadFileFullPath)
+lngReadLen = 144
+lngSurplus = lngFileSize Mod lngReadLen
+
+strReturnCodeInFile = StrConv(strReturnCodeInFile, vbFromUnicode)
+intReturnCodeLen = LenB(strReturnCodeInFile)
+
+ReDim bytBuffer(1 To lngReadLen)
+
+intFileNum = FreeFile
+Open strReadFileFullPath For Binary As intFileNum
+
+Do Until LOF(intFileNum) <= Loc(intFileNum)
+
+    If LOF(intFileNum) - Loc(intFileNum) <= lngReadLen Then
+        ReDim bytBuffer(1 To (LOF(intFileNum) - Loc(intFileNum)))
+    End If
+    
+    Get #intFileNum, , bytBuffer
+    strBuffer = strBuffer & CStr(bytBuffer)
+    lngLPos = InStrB(1, strBuffer, strReturnCodeInFile)
+    Do Until (lngLPos = 0)
+    
+        If lngLPos > 0 Then
+            strRecord = strRecord & LeftB(strBuffer, lngLPos - 1)
+            strBuffer = MidB(strBuffer, lngLPos + intReturnCodeLen)
+        Else
+            If LOF(intFileNum) <= Loc(intFileNum) Then
+                strRecord = strRecord & strBuffer
+            End If
+        End If
+        
+        If lngLPos > 0 Or LOF(intFileNum) <= Loc(intFileNum) Then
+            
+            strArray(0) = StrConv(strRecord, vbUnicode)
+            Call pobjCollection.addRecord(strArray)
+            strRecord = ""
+            
+        End If
+        
+        lngLPos = InStrB(1, strBuffer, strReturnCodeInFile)
+        
+    Loop
+    
+Loop
+
+If (LenB(strBuffer) > 0) Then
+    strArray(0) = StrConv(strBuffer, vbUnicode)
+    Call pobjCollection.addRecord(strArray)
+End If
+
+Erase strArray
+Close intFileNum
+
+End Sub
