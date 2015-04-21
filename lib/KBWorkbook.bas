@@ -58,6 +58,7 @@ End Function
 '
 '   Author          Date          Reason      Comment
 '   ------------    ----------    --------    ---------
+'   Jingun Jung     2015-04-21    UPDATED     Save Extension
 '
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 Public Sub MakeWorkbook( _
@@ -66,6 +67,9 @@ Public Sub MakeWorkbook( _
 )
 
 Dim objWB As Workbook
+Dim strExtension As String
+
+strExtension = GetExtensionNameForSpecifiedPath(strFileName)
 
 If (IsExistWorkbook(strFileName) = True) Then
     
@@ -75,9 +79,14 @@ End If
 
 Set objWB = Workbooks.Add
 
-objWB.SaveAs Filename:=strPath & "\" & strFileName, _
-             FileFormat:=xlNormal, _
-             Local:=True
+Select Case LCase(strExtension)
+Case "xlsx"
+    objWB.SaveAs Filename:=strPath & "\" & strFileName, FileFormat:=xlOpenXMLWorkbook, Local:=True  ' 51
+Case "xlsm"
+    objWB.SaveAs Filename:=strPath & "\" & strFileName, FileFormat:=xlOpenXMLWorkbookMacroEnabled, Local:=True  ' 52
+Case Else
+    objWB.SaveAs Filename:=strPath & "\" & strFileName, FileFormat:=xlWorkbookNormal, Local:=True
+End Select
 
 Set objWB = Nothing
 
