@@ -46,28 +46,28 @@ On Error GoTo ErrorHandler
 ' ==================================================
 
 ' Screen updating is turned off
-1000: Call LockScreen
+100 Call LockScreen
 
 ' Initialization DebugLog object
-1010: Call objDbg.init
+101 Call objDbg.init
 
 ' Output debug log
-1020: Call objDbg.writeInformationLog(PROCEDURE_NAME, "Start VBAMacro")
+102 Call objDbg.writeInformationLog(PROCEDURE_NAME, "Start VBAMacro")
 
 ' Initialization ProgressBar object
-1030: Call objBar.initUI(PROGRESS_BAR_TITLE, RGB(255, 0, 0), RGB(0, 0, 255), RGB(0, 255, 0), PROGRESS_BAR_GROUP_FIRST, PROGRESS_BAR_GROUP_SECOND, PROGRESS_BAR_GROUP_THIRD)
+103 Call objBar.initUI(PROGRESS_BAR_TITLE, RGB(255, 0, 0), RGB(0, 0, 255), RGB(0, 255, 0), PROGRESS_BAR_GROUP_FIRST, PROGRESS_BAR_GROUP_SECOND, PROGRESS_BAR_GROUP_THIRD)
 
 ' Select input files
-1040: intInputFilesCnt = OpenFiles(INPUT_DIALOG_FILE_TYPE, INPUT_DIALOG_TITLE, True, varInputFiles)
+104 intInputFilesCnt = OpenFiles(INPUT_DIALOG_FILE_TYPE, INPUT_DIALOG_TITLE, True, varInputFiles)
 
 ' Output debug log
-1050: Call objDbg.writeInformationLog(PROCEDURE_NAME, "Input Files count=" & intInputFilesCnt)
+105 Call objDbg.writeInformationLog(PROCEDURE_NAME, "Input Files count=" & intInputFilesCnt)
 
 ' Display Progress bar window
-1060: Call objBar.showUI(False)
+106 Call objBar.showUI(False)
 
 ' Repaint Progress bar window
-1070: Call objBar.repaintUI
+107 Call objBar.repaintUI
 
 ' ==================================================
 ' Main processing Section
