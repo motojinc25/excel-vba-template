@@ -15,6 +15,7 @@ Option Explicit
 '
 '   Author          Date          Reason      Comment
 '   ------------    ----------    --------    ---------
+'   Jingun Jung     2015-05-13    Updated     Issue #25
 '
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 Public Sub LockScreen()
@@ -26,6 +27,7 @@ Range("A1").Select
 Application.ScreenUpdating = False
 Application.DisplayAlerts = False
 Application.StatusBar = "Starting VBA Program."
+Application.Calculate = xlCalculationManual
 
 End Sub
 
@@ -43,6 +45,7 @@ End Sub
 '
 '   Author          Date          Reason      Comment
 '   ------------    ----------    --------    ---------
+'   Jingun Jung     2015-05-13    Updated     Issue #25
 '
 ''''''''''''''''''''''''''''''''''''''''''''''''''''
 Public Sub UnLockScreen()
@@ -54,5 +57,6 @@ Range("A1").Select
 Application.ScreenUpdating = True
 Application.DisplayAlerts = True
 Application.StatusBar = False
+Application.Calculate = xlCalculationAutomatic
 
 End Sub
